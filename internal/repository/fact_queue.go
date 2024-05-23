@@ -14,7 +14,7 @@ type ListQueue struct {
 
 var queue *ListQueue
 
-// GetQueue создает и возвращает простую очерель
+// GetQueue создает и возвращает простую очерель. Такая очередб не лучшая идея, лучше использовать RabbitMQ или Kafka
 func GetQueue() *ListQueue {
 	if queue == nil {
 		q := ListQueue{
