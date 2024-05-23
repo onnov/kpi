@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+
+  kpi_db:
+    container_name: kpi_db
+    image: yobasystems/alpine-mariadb
+    restart: always
+    ports:
+      - "127.0.0.1:3366:3306"
+    volumes:
+      - "db-data:/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-secret}
+      MYSQL_DATABASE: kpi
+      MYSQL_USER: kpi
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-kpi}
+
+  pma:
+    container_name: pma
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: kpi_db
+      PMA_PORT: 3306
+    ports:
+      - "8008:80"
+
+volumes:
+  db-data:
